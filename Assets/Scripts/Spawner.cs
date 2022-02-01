@@ -1,20 +1,23 @@
 using UnityEngine;
-
+using System;
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private GameObject barrier;
+  public GameObject barrier;
     [SerializeField] private GameObject enemy;
     [SerializeField] private float timeSpawnBar;
     [SerializeField] private int spawnCountToEnemyCreation;
     private int barrierSpawnCount;
     private float nextspawn;
     private Vector2 spawn;
-   
+    GameObject ex1;
+    public int pere;
 
     private void Start()
     {
         spawn = new Vector2(transform.position.x, transform.position.y);
        
+        
+
     }
     private void FixedUpdate()
     {
@@ -24,11 +27,13 @@ public class Spawner : MonoBehaviour
             {
                 Spawn(enemy);
                 barrierSpawnCount = 0;
+               
             }
             else
             {
                 Spawn(barrier);
                 barrierSpawnCount++;
+               
             }
         }
 

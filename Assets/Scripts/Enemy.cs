@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    TextMesh textEnemy;
+    private Vector2 _downVect;
+    public float Speed=10f;
+    public TextMesh textEnemy;
 
     void Start()
     {
@@ -14,6 +16,7 @@ public class Enemy : MonoBehaviour
     
     void Update()
     {
-        
+        _downVect = new Vector2(0, Speed);
+        transform.Translate(_downVect);
     }
 }
