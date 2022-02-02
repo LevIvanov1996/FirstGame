@@ -4,13 +4,14 @@ public class Player : MonoBehaviour
 {
     private Vector2 _moveDelta;
     public TextMesh scoreCube;
+    
     public int Score;
    
     
 
      void Start()
     {
-     
+       
     }
     void FixedUpdate()
     {
