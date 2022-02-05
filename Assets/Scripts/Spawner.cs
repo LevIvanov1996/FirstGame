@@ -12,25 +12,18 @@ public class Spawner : MonoBehaviour
     private int summ;
     private int barrierSpawnCount;
     private float nextspawn;
-    private Vector2 spawn;
-
-   
     public int namberBorder1;
-    public  int namberBorder2;
-    public int bigger;
-    public void Start()
-    {
+    public int namberBorder2;
+    public int bigger => namberBorder1 > namberBorder2 ? namberBorder1 : namberBorder2;
 
-        
-        spawn = new Vector2(transform.position.x, transform.position.y);
-        
-    }
     private void FixedUpdate()
     {
-        
         if (CanSpawn())
         {
-            if(barrierSpawnCount == spawnCountToEnemyCreation)
+            summ = summ + bigger;
+            PostEnemy = summ;
+           
+            if (barrierSpawnCount == spawnCountToEnemyCreation)
             {
                 Spawn(enemy);
                 barrierSpawnCount = 0;
@@ -43,41 +36,16 @@ public class Spawner : MonoBehaviour
                 Spawn(barrier);
                 barrierSpawnCount++;
                 namberBorder1 = Barier.text1;
-                namberBorder2 = Barier.text2;
-                WhoIsBigger();
+                namberBorder2 = Barier.text2;   
                 Debug.Log("большее из чисел"+bigger);
                 
             }
-            summ =summ+ bigger;
-            PostEnemy = summ;
-           
         }
-
-        
-
     }
-  
-
-   
-    public void WhoIsBigger()
-    {
-        if (namberBorder1 > namberBorder2)
-        {
-            bigger = namberBorder1;
-        }
-        else
-        {
-            bigger = namberBorder2;
-        }
-       
-        
-    }
-   
     private bool CanSpawn() => Time.time >= nextspawn;
-   
     private void Spawn(GameObject obj)
     {
         nextspawn = Time.time + timeSpawnBar;
-        Instantiate(obj, spawn, Quaternion.identity);
+        Instantiate(obj, transform.position, Quaternion.identity);
     }
 }

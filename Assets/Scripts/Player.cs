@@ -1,10 +1,10 @@
 using UnityEngine;
-using System;
+
 public class Player : MonoBehaviour
 {
     private Vector2 _moveDelta;
     public TextMesh scoreCube;
-    
+   
     public int Score;
    
     
@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
       
-        scoreCube.text = Score.ToString();
+       
         float x = Input.GetAxis("Horizontal");
         _moveDelta = new Vector2(x, 0);
 
@@ -41,7 +41,22 @@ public class Player : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D coll)
     {
-        Score = Score + Int32.Parse(coll.gameObject.GetComponentInChildren<TextMesh>().text);
+        
+        int collObjectScore = int.Parse(coll.gameObject.GetComponentInChildren<TextMesh>().text);
+        Score = Score + collObjectScore;
+        scoreCube.text = Score.ToString();
+
+        if(coll.gameObject.name=="Enemy")
+        {
+
+            if (Score >= collObjectScore)
+            {
+                Score -= collObjectScore;
+            }
+            else
+                Destroy(gameObject);
+            Destroy(coll.gameObject);
+        }
         scoreCube.text = Score.ToString();
     }
     private void OnTriggerEnter2D(Collider2D col)
@@ -51,5 +66,6 @@ public class Player : MonoBehaviour
             Score--;
             scoreCube.text = Score.ToString();
         }
+        scoreCube.text = Score.ToString();
     }
 }
