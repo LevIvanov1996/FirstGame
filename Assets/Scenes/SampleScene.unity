@@ -217,9 +217,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character
       objectReference: {fileID: 0}
+    - target: {fileID: 2939473073716602264, guid: e00fe44fe36c3614e819deecf96bfa1f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2939473073716602266, guid: e00fe44fe36c3614e819deecf96bfa1f, type: 3}
       propertyPath: Score
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2939473073716602270, guid: e00fe44fe36c3614e819deecf96bfa1f, type: 3}
       propertyPath: m_RootOrder
@@ -337,7 +341,7 @@ PrefabInstance:
     - target: {fileID: 1129518258502811871, guid: 3fd8b34de09c9c141a21db3de68781a7, type: 3}
       propertyPath: barrier
       value: 
-      objectReference: {fileID: 9211892698600513668, guid: 365668233b9eeb54b9a94c0b0b42b8d4, type: 3}
+      objectReference: {fileID: 6977225720275699031, guid: 365668233b9eeb54b9a94c0b0b42b8d4, type: 3}
     - target: {fileID: 1129518258502811871, guid: 3fd8b34de09c9c141a21db3de68781a7, type: 3}
       propertyPath: Example1
       value: 

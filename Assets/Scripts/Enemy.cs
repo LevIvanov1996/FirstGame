@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public static TextMesh textEnemy;
-    public static int texen;
+    public  TextMesh textEnemy;
     private Vector2 _downVect;
     public float Speed=3f;
     
@@ -14,7 +13,7 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
-        texen = int.Parse(textEnemy.text);
+       textEnemy.text  = Spawner.PostEnemy.ToString();
     }
 
     

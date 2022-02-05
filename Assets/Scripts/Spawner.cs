@@ -8,6 +8,8 @@ public class Spawner : MonoBehaviour
     [SerializeField] private GameObject enemy;
     [SerializeField] private float timeSpawnBar;
     [SerializeField] private int spawnCountToEnemyCreation;
+    public static int PostEnemy;
+    private int summ;
     private int barrierSpawnCount;
     private float nextspawn;
     private Vector2 spawn;
@@ -18,21 +20,22 @@ public class Spawner : MonoBehaviour
     public int bigger;
     public void Start()
     {
-      
-      
-        spawn = new Vector2(transform.position.x, transform.position.y);
 
+        
+        spawn = new Vector2(transform.position.x, transform.position.y);
+        
     }
     private void FixedUpdate()
     {
-       
+        
         if (CanSpawn())
         {
             if(barrierSpawnCount == spawnCountToEnemyCreation)
             {
                 Spawn(enemy);
                 barrierSpawnCount = 0;
-                Debug.Log(Enemy.texen);
+                
+                Debug.Log("сумма чисел енеми "+summ);
 
             }
             else
@@ -42,20 +45,23 @@ public class Spawner : MonoBehaviour
                 namberBorder1 = Barier.text1;
                 namberBorder2 = Barier.text2;
                 WhoIsBigger();
-                Debug.Log(bigger);
+                Debug.Log("большее из чисел"+bigger);
                 
             }
+            summ =summ+ bigger;
+            PostEnemy = summ;
+           
         }
 
+        
 
-        Enemy.textEnemy.text += bigger.ToString();
     }
   
 
    
     public void WhoIsBigger()
     {
-        if (namberBorder1 >= namberBorder2)
+        if (namberBorder1 > namberBorder2)
         {
             bigger = namberBorder1;
         }

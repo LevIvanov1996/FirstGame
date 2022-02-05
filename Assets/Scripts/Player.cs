@@ -15,10 +15,8 @@ public class Player : MonoBehaviour
     }
     void FixedUpdate()
     {
-
-       
       
-
+        scoreCube.text = Score.ToString();
         float x = Input.GetAxis("Horizontal");
         _moveDelta = new Vector2(x, 0);
 
@@ -35,9 +33,8 @@ public class Player : MonoBehaviour
         {
             transform.Translate(_moveDelta * Time.deltaTime * 6);
         }
-
-      
     }
+
     public void Move()
     {
         transform.Translate(_moveDelta * Time.deltaTime * 6);
@@ -45,7 +42,14 @@ public class Player : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D coll)
     {
         Score = Score + Int32.Parse(coll.gameObject.GetComponentInChildren<TextMesh>().text);
-           
         scoreCube.text = Score.ToString();
+    }
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.name == "Danger")
+        {
+            Score--;
+            scoreCube.text = Score.ToString();
+        }
     }
 }

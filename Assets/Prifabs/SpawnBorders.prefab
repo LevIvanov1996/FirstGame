@@ -43,14 +43,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d2ca31bc22771547a0df0c13f345dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  barrier: {fileID: 6501993190058888429, guid: 3f82820a0b501b548ab0a6b98ea466f4, type: 3}
-  Exaple1: {fileID: 0}
-  Exaple2: {fileID: 7272652334198915532, guid: 405de314784e35b41a6fccd04a47afc9, type: 3}
+  barrier: {fileID: 6977225720275699031, guid: 365668233b9eeb54b9a94c0b0b42b8d4, type: 3}
   enemy: {fileID: 7154862763262137081, guid: d3db03a8f746cf344a025af6fe2e400d, type: 3}
   timeSpawnBar: 5
   spawnCountToEnemyCreation: 5
-  pere: 0
-  textEnemy: {fileID: 4361144915323233561, guid: 8d45d537674e88a49a9f16057278277f, type: 3}
   namberBorder1: 0
   namberBorder2: 0
   bigger: 0
