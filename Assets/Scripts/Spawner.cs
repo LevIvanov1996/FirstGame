@@ -1,51 +1,65 @@
 using UnityEngine;
 
-
 public class Spawner : MonoBehaviour
 {
-    public GameObject barrier;
-   
-    [SerializeField] private GameObject enemy;
-    [SerializeField] private float timeSpawnBar;
-    [SerializeField] private int spawnCountToEnemyCreation;
-    public static int PostEnemy;
-    private int summ;
-    private int barrierSpawnCount;
-    private float nextspawn;
-    public int namberBorder1;
-    public int namberBorder2;
-    public int bigger => namberBorder1 > namberBorder2 ? namberBorder1 : namberBorder2;
+    [SerializeField] private GameObject _examplesBarrier;
+    [SerializeField] private GameObject _checkBarrier;
+    [SerializeField] private float _spawnDelayDuration;
+    [SerializeField] private int _spawnCountToCheckBarrierCreation;
+    [SerializeField] private int _sum;
+    private int _barrierSpawnCount;
+    private float _nextSpawn;
 
+    private void Start() => SpawnExamplesBarrier();
     private void FixedUpdate()
     {
+        // Если можно создавать новый объект.
         if (CanSpawn())
         {
-            summ = summ + bigger;
-            PostEnemy = summ;
-           
-            if (barrierSpawnCount == spawnCountToEnemyCreation)
+            // И количесто уже созданых барьеров равняется количеству необходимому для создания барьера проверяющего очки игрока.
+            if (_barrierSpawnCount == _spawnCountToCheckBarrierCreation)
             {
-                Spawn(enemy);
-                barrierSpawnCount = 0;
-                
-                Debug.Log("сумма чисел енеми "+summ);
-
+                // Получаем ссылку на этот барьер.
+                var temp = Spawn(_checkBarrier);
+                // Присвоили значение поля _sum (максимальное значение во всех созданых барьерах).
+                temp.GetComponentInChildren<TextMesh>().text = _sum.ToString();
+                // Обнулили значения счетчика созданых барьеров и предидущую сумму очков.
+                _barrierSpawnCount = 0;
+                _sum = 0;
             }
             else
             {
-                Spawn(barrier);
-                barrierSpawnCount++;
-                namberBorder1 = Barier.text1;
-                namberBorder2 = Barier.text2;   
-                Debug.Log("большее из чисел"+bigger);
-                
+                // Тогда просто воздаем барьер с примерами.
+                SpawnExamplesBarrier();
             }
         }
     }
-    private bool CanSpawn() => Time.time >= nextspawn;
-    private void Spawn(GameObject obj)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns>Возвращает true если мы можем создать новый объект на сцене.</returns>
+    private bool CanSpawn() => Time.time >= _nextSpawn;
+    /// <summary>
+    /// Создает барьер с примерами.
+    /// </summary>
+    private void SpawnExamplesBarrier()
     {
-        nextspawn = Time.time + timeSpawnBar;
-        Instantiate(obj, transform.position, Quaternion.identity);
+        // Получаем ссылку на созданный на сцене объект.
+        var temp = Spawn(_examplesBarrier);
+        // Получаем значение примеров в этом объекте.
+        int example1Value = int.Parse(temp.transform.GetChild(0).GetComponentInChildren<TextMesh>().text);
+        int example2Value = int.Parse(temp.transform.GetChild(1).GetComponentInChildren<TextMesh>().text);
+        // Присваевает наибольшее значение в поле _sum (Тернарный оператор).
+        _sum += example1Value > example2Value ? example1Value : example2Value;
+        // Обновляем количество созданых объектов.
+        _barrierSpawnCount++;
+    }
+    /// <summary>
+    /// Создеёт передаваемый в параметрах GameObject.
+    /// </summary>
+    private GameObject Spawn(GameObject obj)
+    {
+        _nextSpawn = Time.time + _spawnDelayDuration;
+        return Instantiate(obj, transform.position, Quaternion.identity);
     }
 }

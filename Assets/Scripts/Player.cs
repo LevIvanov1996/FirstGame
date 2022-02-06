@@ -2,23 +2,15 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private Vector2 _moveDelta;
-    public TextMesh scoreCube;
-   
-    public int Score;
-   
+    [SerializeField] private int _score;
+    [SerializeField] private float _moveSpeed;
+    [SerializeField] private TextMesh _textMesh;
+    private Vector2 _delta;
     
-
-     void Start()
-    {
-       
-    }
     void FixedUpdate()
     {
-      
-       
-        float x = Input.GetAxis("Horizontal");
-        _moveDelta = new Vector2(x, 0);
+        // Движение игрока (с ограничениями по краям экрана)
+        _delta = new Vector2(Input.GetAxis("Horizontal"), 0);
 
         if (transform.position.x <= -8.34f)
         {
@@ -26,46 +18,49 @@ public class Player : MonoBehaviour
         }
         else if (transform.localPosition.x >= 8.34f)
         {
-              transform.Translate(new Vector2(-16.50f, 0f));
-            
+            transform.Translate(new Vector2(-16.50f, 0f));
         }
         else
         {
-            transform.Translate(_moveDelta * Time.deltaTime * 6);
+            Move();
         }
     }
-
-    public void Move()
+    private void OnCollisionEnter2D (Collision2D coll)
     {
-        transform.Translate(_moveDelta * Time.deltaTime * 6);
-    }
-    private void OnCollisionEnter2D(Collision2D coll)
-    {
-        
+        // Обработка столкновений с другими объектами.
+        // Запоминаем значение поля text объекта с которым мы столкнулись.
         int collObjectScore = int.Parse(coll.gameObject.GetComponentInChildren<TextMesh>().text);
-        Score = Score + collObjectScore;
-        scoreCube.text = Score.ToString();
 
-        if(coll.gameObject.name=="Enemy")
+        // Если это барьер который проверяет количесто очков у игрока.
+        if(coll.gameObject.tag == "CheckBarrier")
         {
-
-            if (Score >= collObjectScore)
+            // Если количество очков у игрока больше или равно количеству очков объекта с которым он взаимодействует (колизия).
+            if (_score >= collObjectScore)
             {
-                Score -= collObjectScore;
+                // Просто отнимаем у игрока количество очков объекта с которым он сталкнулся.
+                _score -= collObjectScore;
             }
             else
+            {
+                // В противном случае игрок уничтожается, игра останавливается.
                 Destroy(gameObject);
-            Destroy(coll.gameObject);
+                Time.timeScale = 0;
+            }
         }
-        scoreCube.text = Score.ToString();
-    }
-    private void OnTriggerEnter2D(Collider2D col)
-    {
-        if (col.gameObject.name == "Danger")
+        else // Любой другой объект 
         {
-            Score--;
-            scoreCube.text = Score.ToString();
+            // Присваеваем очки объекта, игроку.
+            _score += collObjectScore;
         }
-        scoreCube.text = Score.ToString();
+        // Уничтожаем объект с которым взаимодействовал игрок.
+        Destroy(coll.gameObject);
+        // Выводи в TextMesh новое значение очков игрока.
+        _textMesh.text = _score.ToString();
     }
+    private void OnTriggerEnter2D (Collider2D coll)
+    {
+        // Декриментирование значение очков игрока (Тернарный оператор).
+        _textMesh.text = coll.gameObject.name == "Danger" ? (--_score).ToString() : _score.ToString();
+    }
+    private void Move() => transform.Translate(_delta * _moveSpeed);
 }
