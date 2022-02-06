@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 1129518258502811870}
   - component: {fileID: 1129518258502811871}
   m_Layer: 0
-  m_Name: SpawnBorders
-  m_TagString: Untagged
+  m_Name: Spawner
+  m_TagString: Spawner
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,10 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d2ca31bc22771547a0df0c13f345dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  barrier: {fileID: 6977225720275699031, guid: 365668233b9eeb54b9a94c0b0b42b8d4, type: 3}
-  enemy: {fileID: 7154862763262137081, guid: d3db03a8f746cf344a025af6fe2e400d, type: 3}
-  timeSpawnBar: 5
-  spawnCountToEnemyCreation: 5
-  namberBorder1: 0
-  namberBorder2: 0
-  bigger: 0
+  _examplesBarrier: {fileID: 6977225720275699031, guid: 365668233b9eeb54b9a94c0b0b42b8d4, type: 3}
+  _checkBarrier: {fileID: 7154862763262137081, guid: d3db03a8f746cf344a025af6fe2e400d, type: 3}
+  _spawnDelayDuration: 4
+  _spawnCountToCheckBarrierCreation: 2
